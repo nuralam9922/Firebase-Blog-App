@@ -1,0 +1,28 @@
+.mobileMenuAnimation {
+	top: -1000px;
+	left: 0;
+	animation: mobileMenuAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes mobileMenuAnimation {
+	0% {
+		top: -1000px;
+	}
+	100% {
+		top: 0px;
+	}
+}
+.animationOut {
+	left: 0;
+
+	animation: animationOut 0.5s ease-in-out forwards;
+}
+
+@keyframes animationOut {
+	0% {
+		top: 0px;
+	}
+	100% {
+		top: -1000px;
+	}
+}
