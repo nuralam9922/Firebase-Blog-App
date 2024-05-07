@@ -5,8 +5,13 @@ import './Navbar.css';
 
 import { useState } from 'react';
 import { HiMenu } from 'react-icons/hi';
-import { IoClose } from 'react-icons/io5';
+import { IoClose, IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { PiEngine } from 'react-icons/pi';
+import { GoPencil } from 'react-icons/go';
+import { useSelector } from 'react-redux';
+import { BiLogIn } from 'react-icons/bi';
+import { CgProfile } from 'react-icons/cg';
 
 const navList = [
 	{
@@ -18,18 +23,12 @@ const navList = [
 		title: 'Trending Blogs',
 		link: '/trending-blogs',
 	},
-	{
-		title: 'Create Blog',
-		link: '/create-blog',
-	},
+
 	{
 		title: 'Categories',
 		link: '/categories',
 	},
-	{
-		title: 'Profile',
-		link: '/profile',
-	},
+
 ];
 
 const mobileMenu = (setIsOpen, isOpen) => {
@@ -58,10 +57,11 @@ const mobileMenu = (setIsOpen, isOpen) => {
 
 function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
-
+	
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
+	const { user } = useSelector((state) => state.authReducer);
 
 	return (
 		<div
@@ -81,15 +81,35 @@ function Navbar() {
 							<li className="p-[8px] bg-transparent text-[18px]">{list.title}</li>
 						</Link>
 					))}
-					{/* search btn
-					<li className="bg-transparent cursor-pointer">
-						<div className="p-2 border-2 flex items-center justify-between gap-5 rounded-full px-5">
-							<IoSearch /> Search..
-						</div>
-					</li> */}
-					<Link to={'/auth/login'}>
-						<Button label="Login" className={'text-[18px]'} />
-					</Link>
+
+					{user ? (
+						<Link to={'/create-blog'}>
+							<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+								<GoPencil />
+								Create Blog
+							</button>
+						</Link>
+					) : (
+						<Link to={'/auth/login'}>
+							<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+								<BiLogIn />
+								Login
+							</button>
+						</Link>
+					)}
+
+					{user && (
+						<Link to={'/profile'}>
+							<button
+								className={
+									'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md hover:text-white hover:bg-blue-400'
+								}
+							>
+								<CgProfile />
+								Profile
+							</button>
+						</Link>
+					)}
 				</ul>
 
 				<div onClick={toggleMenu} className="size-[32px] border block cursor-pointer customMenu:hidden">

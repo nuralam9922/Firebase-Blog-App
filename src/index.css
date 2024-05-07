@@ -44,10 +44,7 @@
 	}
 }
 
-*{
-  background-color: var(--background);
-    transition: all .4s linear;
-}
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -72,8 +69,8 @@
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  /* background: #555; */
-  background-color: transparent;
+  background: #555;
+  /* background-color: transparent; */
 }
 
 ::selection {

@@ -1,0 +1,10 @@
+/* CSS in CreateBlog.css */
+.ql-editor img {
+    max-width: 10%; /* Adjust image width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+.react-quill img{
+	width: 100%;
+	max-height: 500px;
+	object-fit: cover;
+}

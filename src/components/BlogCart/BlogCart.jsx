@@ -1,6 +1,7 @@
 import React from 'react';
 import image from '../../assets/demoImages/image.png';
 import {ImageComponent} from '../../components';
+import { Link } from 'react-router-dom';
 
 const colorSet = [
 	{
@@ -29,19 +30,24 @@ const color = () => {
 	return colorSet[Math.floor(Math.random() * colorSet.length)];
 };
 
-function BlogCart() {
+function BlogCart({item}) {
 	return (
 		<div className="w-full min-h-[448px]  flex flex-col  gap-[24px]">
-			<div className="w-full cursor-pointer h-[278px] overflow-hidden rounded-sm">
-				<ImageComponent width="100" height="278px" src={image} />
-			</div>
+			<Link to={`/blog-details/${item?.id}`}>
+				<div className="w-full cursor-pointer h-[278px] overflow-hidden rounded-sm">
+					<ImageComponent width="100" height="278px" src={item?.thumbnail || 'https://via.placeholder.com/300'} />
+				</div>
+			</Link>
 
 			<div className="min-h-[196px] w-full flex flex-col gap-[24px] lg:gap-[15px]">
-				<p className="w-full h-[20px] text-textSecondary font-[600] text-[14px]">Sunday , 1 Jan 2023</p>
-				<h1 className=" group  flex gap-[16px]">
+				<p className="w-full h-[20px] text-textSecondary font-[600] text-[14px]">{item.postDate.split('/').join(' / ')}</p>
+				<h1 className=" group  flex gap-[16px] h-20">
 					{/* heading */}
-					<p className="text-textPrimary w-full cursor-pointer min-h-10 break-words text-pretty font-[600] text-[23px] text-clip  leading-[32px]">
-						UX review presentations
+					<p
+						style={{ wordBreak: 'break-all' }}
+						className="text-textPrimary w-full cursor-pointer min-h-10 break-words text-pretty font-[600] text-[23px] text-clip  leading-[32px]"
+					>
+						{item?.title.split(' ').slice(0,20).join(' 	')}...
 					</p>
 					<svg
 						className="group-hover:rotate-45 duration-150"
@@ -55,13 +61,13 @@ function BlogCart() {
 					</svg>
 				</h1>
 				{/* small description */}
-				<p className="text-textAscent cursor-pointer  text-[16px] leading-[24px]">
-					How do you create compelling presentations that wow your colleagues and impress your managers?
+				<p style={{ wordBreak: 'break-all' }} className="text-textAscent cursor-pointer  text-[16px] leading-[24px] w-full">
+					{item?.description.slice(0, 100)}...
 				</p>
 
 				{/* blog category or types */}
 				<div className="w-full select-none h-[24px] flex items-center gap-[8px] flex-wrap ">
-					{['Design', 'Product', 'UX', 'UX'].map((item, index) => {
+					{item.tags.slice(0, 5).map((item, index) => {
 						const randomColor = color();
 
 						return (
