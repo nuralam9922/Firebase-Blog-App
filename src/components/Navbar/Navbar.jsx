@@ -27,28 +27,50 @@ const mobileMenu = (setIsOpen, isOpen, user) => {
 		<div
 			className={`absolute w-full  h-screen ${
 				isOpen && 'customMenu:hidden'
-			} bg-[#1A1A1A] backdrop-blur-3xl flex items-center justify-center text-textPrimary ${animationClass}`}
-		>
+			} bg-[#1A1A1A] backdrop-blur-3xl flex items-center justify-center text-textPrimary ${animationClass}`}>
 			{/* close icon */}
-			<div onClick={() => setIsOpen((prev) => !prev)} className="absolute top-5 cursor-pointer right-5 text-white text-3xl">
+			<div
+				onClick={() => setIsOpen((prev) => !prev)}
+				className='absolute top-5 cursor-pointer right-5 text-white text-3xl'>
 				<IoClose />
 			</div>
-			<ul className="flex flex-col gap-[24px] text-center text-2xl">
+			<ul className='flex flex-col gap-[24px] text-center justify-center text-2xl'>
 				{navList.map((list, index) => (
-					<Link onClick={() => setIsOpen((prev) => !prev)} to={list.link} className="bg-transparent " key={index}>
-						<li className="text-white ">{list.title}</li>
+					<Link
+						onClick={() => setIsOpen((prev) => !prev)}
+						to={list.link}
+						className='bg-transparent '
+						key={index}>
+						<li className='text-white '>{list.title}</li>
 					</Link>
 				))}
 				{user ? (
-					<Link to={'/create-blog'}>
-						<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
-							<GoPencil />
-							Create Blog
-						</button>
-					</Link>
+					<>
+						<Link to={'/create-blog'}>
+							<button
+								className={
+									'text-white w-full border-2 py-2 px-5 flex items-center justify-center gap-2 rounded-md'
+								}>
+								<GoPencil />
+								Create Blog
+							</button>
+						</Link>
+						<Link to={'/profile'}>
+							<button
+								className={
+									'text-white w-full border-2 py-2 px-5 flex items-center justify-center gap-2 rounded-md'
+								}>
+								<CgProfile />
+								Profile
+							</button>
+						</Link>
+					</>
 				) : (
 					<Link to={'/auth/login'}>
-						<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+						<button
+							className={
+								'text-white border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'
+							}>
 							<BiLogIn />
 							Login
 						</button>
