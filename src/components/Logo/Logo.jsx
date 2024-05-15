@@ -8,7 +8,6 @@ function Logo({ Width = 140, height = 40 }) {
 	// const [theme, changeTheme] = useTheme();
 	const { theme } = useSelector((state) => state.theme);
 
-	console.log(theme);
 
 	return (
 		<h1 style={{ width: Width + 'px', height: height + 'px' }} className="text-left bg-transparent">

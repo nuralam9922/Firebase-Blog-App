@@ -38,7 +38,6 @@ class BlogService {
 			const q = query(blogsRef, where('isPublicPost', '==', true));
 			// Fetch all documents from the collection
 			const blogsSnapshot = await getDocs(q);
-			console.log(blogsSnapshot.docs.map((doc) => doc.data()));
 			// Process each document and extract data
 			const blogs = blogsSnapshot.docs.map((doc) => ({
 				id: doc.id,

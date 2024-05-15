@@ -38,7 +38,6 @@ function App() {
 					const userDetails = await AuthService.getUserDetails(
 						userId
 					);
-					console.log(userDetails);
 					if (userDetails !== undefined) {
 						const userInfo = { ...userDetails, userId };
 						dispatch(login(userInfo));
