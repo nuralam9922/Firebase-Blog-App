@@ -62,42 +62,35 @@ function Profile() {
 		<>
 			<Navbar />
 			<div className='container mx-auto px-4 py-8 min-h-screen'>
-				{/* toggle theme and logout buttons */}
-				<div className='flex items-center justify-end mb-8 gap-5'>
-					<div>
-						<button
-							onClick={handelThemeChange}
-							className=' size-10 border text-textPrimary border-blue-500  gap-5   flex items-center justify-center  rounded-full '>
-							<ThemeIcon />
-						</button>
-					</div>
-					<button
-						onClick={handelLogout}
-						className='px-4 py-2 bg-blue-500 text-white rounded-md float-end text-end'>
-						Logout
-					</button>
-				</div>
 				{/* user profile section */}
 				<div className='w-full  py-10 flex items-center justify-center text-textPrimary gap-10 '>
-					<div className='  max-w-3xl flex items-start gap-20 justify-between '>
-						<img
-							src={
-								user?.userPhoto ||
-								`https://via.placeholder.com/200`
-							}
-							className='w-24 h-24 rounded-full border-2 border-white object-cover'
-							alt={user?.userName}
-						/>
+					<div className=' max-w-3xl flex items-start gap-4 md:gap-20 justify-between '>
+						<div className='size-14 md:size-20   flex-shrink-0'>
+							<img
+								src={
+									user?.userPhoto ||
+									`https://via.placeholder.com/200`
+								}
+								className='size-14 md:size-20 flex-shrink-0 bg-slate-300 rounded-full border-2 border-white object-cover'
+								alt={user?.userName}
+							/>
+						</div>
 						<div className='bio'>
-							<h1 className='text-3xl font-bold'>
+							<h1 className='md:text-3xl font-bold'>
 								{user?.userName}
 							</h1>
-							<p className='text-sm mt-2'>{user?.bio?.slice(0,150)}</p>
+							<p
+								style={{
+									wordBreak: 'break-all',
+								}}
+								className='text-xs md:text-sm mt-2 text-wrap hid'>
+								{user?.bio?.slice(0, 150)}
+							</p>
 						</div>
 						<div className='EditButton'>
 							<button
 								onClick={() => setShowPopup(true)}
-								className='px-5 text-nowrap py-2 bg-blue-500 text-white rounded-md'>
+								className='px-5 text-nowrap py-2 scale-75 md:scale-100 bg-blue-500 text-white rounded-md'>
 								Edit Profile
 							</button>
 							<EditProfilePopup
@@ -108,7 +101,23 @@ function Profile() {
 						</div>
 					</div>
 				</div>
+				
 
+				{/* toggle theme and logout buttons */}
+				<div className='flex items-center  justify-end mb-8 gap-5'>
+					<div>
+						<button
+							onClick={handelThemeChange}
+							className=' size-8 md:size-10 border text-textPrimary border-blue-500  gap-5   flex items-center justify-center  rounded-full '>
+							<ThemeIcon />
+						</button>
+					</div>
+					<button
+						onClick={handelLogout}
+						className=' text-xs px-2 md:px-4 py-2 md:py-2 bg-blue-500 text-white rounded-md float-end text-end'>
+						Logout
+					</button>
+				</div>
 				{/* user blogs section */}
 				<div className='mb-8'>
 					<div className='w-full items-center justify-center flex mt-20 duration-200'>
