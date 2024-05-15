@@ -24,7 +24,7 @@ function App() {
 	useEffect(() => {
 		const theme = localStorage.getItem('theme');
 		if (theme) {
-			document.documentElement.setAttribute('theme', theme);
+			document.documentElement.setAttribute('theme', theme );
 		} else {
 			document.documentElement.setAttribute('theme', 'light');
 		}
