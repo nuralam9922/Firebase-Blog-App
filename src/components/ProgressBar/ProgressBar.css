@@ -1,0 +1,14 @@
+.progress-bar-animated {
+	width: 0;
+	animation: progress-bar alternate forwards .5s linear;
+	animation-timeline: scroll();
+}
+
+@keyframes progress-bar {
+	from {
+		width: 0;
+	}
+	to{
+		width: 100%;
+	}
+}

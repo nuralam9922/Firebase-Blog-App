@@ -99,7 +99,7 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 								onChange={(e) => setName(e.target.value)}
 								type="text"
 								placeholder="Name"
-								className="w-full py-2 outline-none border indent-5 mt-2 focus:border-blue-400 bg-transparent rounded-lg"
+								className="w-full py-2 text-black outline-none border indent-5 mt-2 focus:border-blue-400 bg-transparent rounded-lg"
 							/>
 						</div>
 						<div className="inputGroup ">
@@ -110,7 +110,7 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 								value={userBio}
 								onChange={(e) => setUserBio(e.target.value)}
 								name=""
-								className="w-full py-2 px-4 outline-none border  mt-2 focus:border-blue-400 bg-transparent rounded-lg"
+								className="w-full py-2 px-4 overflow-scroll outline-none border  mt-2 focus:border-blue-400 bg-transparent rounded-lg"
 								id=""
 							></textarea>
 						</div>

@@ -39,7 +39,8 @@ function Home() {
 							type='text'
 							name=''
 							id=''
-							className='w-full p-[10px] rounded-[8px] border border-[#7F56D9] outline-none'
+							placeholder='Search blogs...'
+							className='w-full bg-transparent p-[10px] rounded-[8px] border border-[#7F56D9] outline-none'
 						/>
 						<button className='h-full px-5 text-xs md:text-base md:px-10 bg-[#7F56D9] text-white  absolute right-0'>
 							Search

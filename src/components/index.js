@@ -10,5 +10,5 @@ import LoadingButton from './LoadingButton';
 import SecondaryButton from './SecondaryButton';
 import Loading from './Loading';
 import BlogCartSkeleton from './BlogCartSkeleton';
-
-export { Loading,BlogCartSkeleton, Navbar, HeroSection, Logo, ImageComponent, Pagination, BlogCart, ThemeIcon, Button, LoadingButton, SecondaryButton };
+import ProgressBar from './ProgressBar/ProgressBar';
+export { Loading,BlogCartSkeleton,ProgressBar, Navbar, HeroSection, Logo, ImageComponent, Pagination, BlogCart, ThemeIcon, Button, LoadingButton, SecondaryButton };

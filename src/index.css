@@ -65,6 +65,7 @@
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 /* Handle on hover */
@@ -79,3 +80,9 @@
   color: #ffff;
 
 }
+
+input{
+	background-color: transparent !important;
+	color: var(--textPrimary) !important;
+}
+

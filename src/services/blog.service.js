@@ -1,25 +1,18 @@
 import {
-	createUserWithEmailAndPassword,
-	GoogleAuthProvider,
-	signInWithEmailAndPassword,
-	signInWithPopup,
-	signOut,
-} from 'firebase/auth';
-import {
-	doc,
-	getDoc,
-	setDoc,
-	collection,
 	addDoc,
-	getDocs,
-	query,
-	where,
-	updateDoc,
+	collection,
 	deleteDoc,
+	doc,
+	endAt,
+	getDoc,
+	getDocs,
+	orderBy,
+	query,
+	startAt,
+	updateDoc,
+	where
 } from 'firebase/firestore';
-import { auth, firestore } from '../firebase/firebaseConfig';
-import Cookies from 'universal-cookie';
-import firebase from 'firebase/compat/app';
+import { firestore } from '../firebase/firebaseConfig';
 
 class BlogService {
 	constructor() {
@@ -94,37 +87,18 @@ class BlogService {
 		return docs;
 	}
 
-	async getBlogsByCategory(category) {
-		const blogRef = collection(firestore, 'blogs');
-		const q = query(blogRef, where('category', '==', category));
-		const docs = [];
-		try {
-			const querySnapshot = await getDocs(q);
-			if (querySnapshot.size > 0) {
-				querySnapshot.forEach((doc) => {
-					// doc.data() is never undefined for query doc snapshots
-					docs.push({ ...doc.data(), id: doc.id });
-				});
-			}
-		} catch (error) {
-			console.log(
-				'error in get blogs my category :: blog service',
-				error
-			);
-			throw new error();
-		}
 
-		return docs;
-	}
 
 	async getBlogBySearchTerm(searchTerm) {
 		const blogRef = collection(firestore, 'blogs');
-		const searchWords = searchTerm.trim().toLowerCase().split(/\s+/);
-		const q = query(
-			blogRef,
-			where('title', '>=', searchTerm),
-			where('isPublicPost', '==', true)
-		);
+		
+	const q = query(
+		blogRef,
+		where('isPublicPost', '==', true),
+		orderBy('title'), // Order by title field
+		startAt(searchTerm),
+		endAt(searchTerm + '\uf8ff') // Add unicode character for upper bound
+	);
 
 		try {
 			const querySnapshot = await getDocs(q);

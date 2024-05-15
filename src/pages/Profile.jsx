@@ -62,6 +62,7 @@ function Profile() {
 		<>
 			<Navbar />
 			<div className='container mx-auto px-4 py-8 min-h-screen'>
+				{/* toggle theme and logout buttons */}
 				<div className='flex items-center justify-end mb-8 gap-5'>
 					<div>
 						<button
@@ -76,21 +77,22 @@ function Profile() {
 						Logout
 					</button>
 				</div>
-				<div className='w-full  py-10 flex items-center justify-center text-textPrimary'>
-					<div className='w-3/4 max-w-xl flex items-start gap-8  justify-center'>
+				{/* user profile section */}
+				<div className='w-full  py-10 flex items-center justify-center text-textPrimary gap-10 '>
+					<div className='  max-w-3xl flex items-start gap-20 justify-between '>
 						<img
 							src={
 								user?.userPhoto ||
 								`https://via.placeholder.com/200`
 							}
-							className='w-24 h-24 rounded-full border-4 border-white'
+							className='w-24 h-24 rounded-full border-2 border-white object-cover'
 							alt={user?.userName}
 						/>
 						<div className='bio'>
 							<h1 className='text-3xl font-bold'>
 								{user?.userName}
 							</h1>
-							<p className='text-sm mt-2'>{user?.bio}</p>
+							<p className='text-sm mt-2'>{user?.bio.slice(0,150)}</p>
 						</div>
 						<div className='EditButton'>
 							<button
@@ -107,6 +109,7 @@ function Profile() {
 					</div>
 				</div>
 
+				{/* user blogs section */}
 				<div className='mb-8'>
 					<div className='w-full items-center justify-center flex mt-20 duration-200'>
 						<Button
