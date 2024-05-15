@@ -15,7 +15,7 @@ class AuthService {
 			const user = await signInWithPopup(auth, this.googleProvider);
 
 			const userId = user.user.uid;
-			const userRef = doc(firestore, 'users', userId);
+			const userRef = await doc(firestore, 'users', userId);
 
 			const userDocSnap = await getDoc(userRef);
 
@@ -36,7 +36,7 @@ class AuthService {
 			}
 		} catch (error) {
 			errorState(error.message);
-			console.error('Error signing in with Google:', error.message);
+			console.error('Error signing in with Google:', error);
 			throw error;
 		}
 	}
@@ -63,7 +63,7 @@ class AuthService {
 				return true;
 			} else return false;
 		} catch (error) {
-			console.error('Error signing up:', error.message);
+			console.error('Error signing up:', error);
 			throw error;
 		}
 	}

@@ -92,7 +92,7 @@ function Profile() {
 							<h1 className='text-3xl font-bold'>
 								{user?.userName}
 							</h1>
-							<p className='text-sm mt-2'>{user?.bio.slice(0,150)}</p>
+							<p className='text-sm mt-2'>{user?.bio?.slice(0,150)}</p>
 						</div>
 						<div className='EditButton'>
 							<button
