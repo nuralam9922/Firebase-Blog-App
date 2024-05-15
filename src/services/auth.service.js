@@ -125,7 +125,7 @@ class AuthService {
 			await updateDoc(docRef, updatedData);
 
 			const userdet = await this.getUserDetails()
-
+			console.log(userdet);
 			return userdet;
 		} catch (error) {
 			console.error('Error updating document:', error);

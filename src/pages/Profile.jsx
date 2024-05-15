@@ -27,13 +27,15 @@ function Profile() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { userStatus, user } = useValidateUserAccess();
+	const { userStatus} = useValidateUserAccess();
 
 	if (userStatus === false) {
 		navigate('/auth/login');
 	}
 	const { blogs, loading, error } = useSelector((state) => state.userBlogs);
 
+	const {user} = useSelector((state) => state.authReducer);
+	console.log(user);
 	const [showPrivatePosts, setShowPrivatePosts] = useState(false);
 	const [showPopup, setShowPopup] = useState(false);
 
@@ -101,7 +103,7 @@ function Profile() {
 						</div>
 					</div>
 				</div>
-				
+
 
 				{/* toggle theme and logout buttons */}
 				<div className='flex items-center  justify-end mb-8 gap-5'>
