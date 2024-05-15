@@ -24,7 +24,7 @@ function CreateBlog() {
 
 	return (
 		<>
-			<div className=" min-h-screen border duration-0  ">
+			<div className=" min-h-screen  duration-0  ">
 				<div className="w-full border  p-3 relative top-0 flex items-start justify-center">
 					<Editor />
 				</div>

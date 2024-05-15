@@ -35,7 +35,7 @@ function Editor() {
 			toolbarSticky: true,
 			toolbarButtonSize: 'large',
 			minimumHeight: 1000,
-			minHeight: 501,
+			minHeight: 701,
 			maxWidth: 800,
 			buttons:
 				'bold,italic,underline,strikethrough,ul,ol,font,fontsize,align,paragraph,brush,lineHeight,superscript,subscript,image,spellcheck,copy,hr,table,link,symbols,fullsize,source,undo,redo',

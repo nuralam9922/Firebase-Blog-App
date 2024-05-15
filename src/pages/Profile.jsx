@@ -1,21 +1,41 @@
 import React from 'react';
-import { Button, Navbar } from '../components';
+import {
+	BlogCart,
+	BlogCartSkeleton,
+	Button,
+	Navbar,
+	ThemeIcon,
+} from '../components';
 import { useNavigate } from 'react-router';
 import useValidateUserAccess from '../hooks/useValidateUserAccess';
 import authService from '../services/auth.service';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/authSlice';
 import { useEffect } from 'react';
+import blogService from '../services/blog.service';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { toggleTheme } from '../features/themeSlice';
+import EditProfilePopup from '../components/EditProfilePopup';
+import { fetchUserBlogs } from '../features/userBlogSlice';
+import { useSelector } from 'react-redux';
 function Profile() {
-	const navigate = useNavigate();
-	const { userStatus, user } = useValidateUserAccess();
-	const dispatch = useDispatch();
 	useEffect(() => {
-		if (userStatus === false) {
-			console.log('userStatus', user);
-			navigate('/auth/login');
-		}
-	}, [userStatus]);
+		window.scrollTo(0, 0);
+	}, []);
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const { userStatus, user } = useValidateUserAccess();
+
+	if (userStatus === false) {
+		navigate('/auth/login');
+	}
+	const { blogs, loading, error } = useSelector((state) => state.userBlogs);
+
+	const [showPrivatePosts, setShowPrivatePosts] = useState(false);
+	const [showPopup, setShowPopup] = useState(false);
 
 	const handelLogout = () => {
 		authService.signOut();
@@ -23,54 +43,150 @@ function Profile() {
 		navigate('/auth/login');
 	};
 
+	useEffect(() => {
+		if (blogs.length == 0) {
+			dispatch(fetchUserBlogs());
+		}
+	}, [blogs.length, dispatch]);
+
+	const handelThemeChange = () => {
+		dispatch(toggleTheme());
+	};
+
+	const allBlogPosts = blogs || [];
+	const privatePosts = allBlogPosts.filter(
+		(blog) => blog.isPublicPost === false
+	);
+
 	return (
 		<>
 			<Navbar />
-			<div className="container mx-auto px-4 py-8">
-				<div className="flex items-center justify-end mb-8">
-					<button onClick={handelLogout} className="px-4 py-2 bg-blue-500 text-white rounded-md float-end text-end">
-						Login
+			<div className='container mx-auto px-4 py-8 min-h-screen'>
+				<div className='flex items-center justify-end mb-8 gap-5'>
+					<div>
+						<button
+							onClick={handelThemeChange}
+							className=' size-10 border text-textPrimary border-blue-500  gap-5   flex items-center justify-center  rounded-full '>
+							<ThemeIcon />
+						</button>
+					</div>
+					<button
+						onClick={handelLogout}
+						className='px-4 py-2 bg-blue-500 text-white rounded-md float-end text-end'>
+						Logout
 					</button>
 				</div>
-				<div className="w-full border-b py-10 flex items-center justify-center">
-					<div className="w-3/4 max-w-xl flex items-center gap-8  justify-center">
+				<div className='w-full  py-10 flex items-center justify-center text-textPrimary'>
+					<div className='w-3/4 max-w-xl flex items-start gap-8  justify-center'>
 						<img
-							src={user.userPhoto || `https://via.placeholder.com/200`}
-							className="w-24 h-24 rounded-full border-4 border-white"
-							alt={user.userName}
+							src={
+								user?.userPhoto ||
+								`https://via.placeholder.com/200`
+							}
+							className='w-24 h-24 rounded-full border-4 border-white'
+							alt={user?.userName}
 						/>
-						<div>
-							<h1 className="text-3xl font-bold">{user.userName}</h1>
-							<p className="text-gray-500">Software Engineer</p>
-							<div className="flex items-center gap-4 mt-2">
-								<span className="text-gray-500">100 posts</span>
-								<span className="text-gray-500">10k followers</span>
-								<span className="text-gray-500">1k following</span>
-							</div>
+						<div className='bio'>
+							<h1 className='text-3xl font-bold'>
+								{user?.userName}
+							</h1>
+							<p className='text-sm mt-2'>{user?.bio}</p>
+						</div>
+						<div className='EditButton'>
+							<button
+								onClick={() => setShowPopup(true)}
+								className='px-5 text-nowrap py-2 bg-blue-500 text-white rounded-md'>
+								Edit Profile
+							</button>
+							<EditProfilePopup
+								user={user}
+								showPopup={showPopup}
+								setShowPopup={setShowPopup}
+							/>
 						</div>
 					</div>
 				</div>
 
-				<div className="mb-8">
-					<h2 className="text-xl font-semibold mb-4 py-10">All Posts</h2>
-					<div className="w-full items-center justify-center flex">
-						<Button label="Public Posts" className={`border-2 border-zinc-300`} />
-						<Button label="Private Posts" className={`border-2 border-zinc-300`} />
+				<div className='mb-8'>
+					<div className='w-full items-center justify-center flex mt-20 duration-200'>
+						<Button
+							onClick={() => setShowPrivatePosts(false)}
+							label='All Posts'
+							className={`border-2 border-zinc-300 ${
+								showPrivatePosts === false
+									? 'bg-blue-400 text-white'
+									: ''
+							}`}
+						/>
+						<Button
+							onClick={() => setShowPrivatePosts(true)}
+							label='Private Posts'
+							className={`border border-zinc-300  ${
+								showPrivatePosts === true
+									? 'bg-blue-400 text-white'
+									: 'text-textPrimary'
+							}`}
+						/>
 					</div>
-					<div className="grid grid-cols-3 gap-4 mt-4">
-						<div className="bg-gray-100 p-4 rounded-md">
-							<img src="https://via.placeholder.com/200" alt="Post Image" className="w-full h-auto rounded-md" />
+					{error && <h1>{error.message}</h1>}
+					{!showPrivatePosts && allBlogPosts.length === 0 && (
+						<div className='w-full  mt-20'>
+							<h1 className='text-textPrimary text-center'>
+								No Posts Yet
+							</h1>
 						</div>
-						<div className="bg-gray-100 p-4 rounded-md">
-							<img src="https://via.placeholder.com/200" alt="Post Image" className="w-full h-auto rounded-md" />
+					)}
+					{showPrivatePosts && privatePosts.length === 0 && (
+						<div className='w-full  mt-20'>
+							<h1 className='text-textPrimary text-center'>
+								No Posts Yet
+							</h1>
 						</div>
-						<div className="bg-gray-100 p-4 rounded-md">
-							<img src="https://via.placeholder.com/200" alt="Post Image" className="w-full h-auto rounded-md" />
-						</div>
+					)}
+					<div
+						className={`grid grid-cols-1 sm:grid-cols-2
+					 md:grid-cols-2 place-items-center lg:grid-cols-3 gap-[24px]
+					  md:gap-10 mt-20 `}>
+						{!error && loading ? (
+							<>
+								{Array(6)
+									.fill(0)
+									.map((item, index) => (
+										<BlogCartSkeleton
+											key={index}
+										/>
+									))}
+							</>
+						) : (
+							<>
+								{showPrivatePosts ? (
+									<>
+										{privatePosts.map((item) => {
+											return (
+												<BlogCart
+													showDots={true}
+													key={item.id}
+													item={item}
+												/>
+											);
+										})}
+									</>
+								) : (
+									<>
+										{allBlogPosts.map((item) => {
+											return (
+												<BlogCart
+													showDots={true}
+													key={item.id}
+													item={item}
+												/>
+											);
+										})}
+									</>
+								)}
+							</>
+						)}
 					</div>
-				</div>
-				<div>
-					<button className="px-4 py-2 bg-gray-500 text-white rounded-md">Toggle Theme</button>
 				</div>
 			</div>
 		</>

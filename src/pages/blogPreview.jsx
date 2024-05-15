@@ -41,8 +41,9 @@ function blogPreview() {
 							</div>
 						</div>
 					</div>
-					{parse(previewData.data)}
+					<div style={{wordBreak:'break-all'}} className='text-left'>{parse(previewData.data)}</div>
 				</div>
+
 			</section>
 			<div className="w-full my-5  pb-10">
 				<Button label="Next" className={'float-end bg-blue-200 text-black'} onClick={() => setIsPopupOpen((prev) => !prev)} />
@@ -50,7 +51,9 @@ function blogPreview() {
 			</div>
 			{/* popup section */}
 
-			<section className={`absolute ${isPopupOpen ? 'block' : 'hidden'} top-0 left-0 z-[99] bg-white w-full min-h-screen`}>
+
+
+			<section className={`absolute ${isPopupOpen ? 'block' : 'hidden'} top-0 left-0 z-[99] bg-background  w-full min-h-screen`}>
 				<Button label="Close ❌" className={'float-end bg-blue-200 text-black mt-10'} onClick={() => setIsPopupOpen((prev) => !prev)} />
 
 				<BlogPost previewData={previewData} />

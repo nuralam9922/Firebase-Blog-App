@@ -18,22 +18,11 @@ const navList = [
 		title: 'Home',
 		link: '/',
 	},
-
-	{
-		title: 'Trending Blogs',
-		link: '/trending-blogs',
-	},
-
-	{
-		title: 'Categories',
-		link: '/categories',
-	},
-
 ];
 
-const mobileMenu = (setIsOpen, isOpen) => {
+const mobileMenu = (setIsOpen, isOpen, user) => {
 	const animationClass = isOpen ? 'mobileMenuAnimation' : 'animationOut';
-
+	
 	return (
 		<div
 			className={`absolute w-full  h-screen ${
@@ -50,6 +39,21 @@ const mobileMenu = (setIsOpen, isOpen) => {
 						<li className="text-white ">{list.title}</li>
 					</Link>
 				))}
+				{user ? (
+					<Link to={'/create-blog'}>
+						<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+							<GoPencil />
+							Create Blog
+						</button>
+					</Link>
+				) : (
+					<Link to={'/auth/login'}>
+						<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+							<BiLogIn />
+							Login
+						</button>
+					</Link>
+				)}
 			</ul>
 		</div>
 	);
@@ -57,7 +61,7 @@ const mobileMenu = (setIsOpen, isOpen) => {
 
 function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
-	
+
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
@@ -119,7 +123,7 @@ function Navbar() {
 
 			{/* mobile menu */}
 
-			{isOpen && mobileMenu(setIsOpen, isOpen)}
+			{isOpen && mobileMenu(setIsOpen, isOpen, user)}
 		</div>
 	);
 }

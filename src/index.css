@@ -27,7 +27,7 @@
 }
 
 @layer base {
-  html[data-theme='light'] {
+  html[theme='light'] {
     --textPrimary: #1a1a1a;
 		--textSecondary: #6941c6;
 		--textAscent: #667085;
@@ -35,7 +35,7 @@
 		--background: #ffff;
 	}
   
-	html[data-theme='dark'] {
+	html[theme='dark'] {
     --textPrimary: #ffff;
 		--textSecondary: #f9f5ff;
 		--textAscent: #f9f5ff;
