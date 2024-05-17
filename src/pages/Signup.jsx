@@ -1,11 +1,11 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoadingButton, SecondaryButton } from '../components';
+import { Button, LoadingButton, SecondaryButton } from '../components';
 import { auth } from '../firebase/firebaseConfig';
 import authService from '../services/auth.service';
 import { useDispatch } from 'react-redux';
-import { login } from '../features/authSlice';
+import { login, logout } from '../features/authSlice';
 import useValidateUserAccess from '../hooks/useValidateUserAccess';
 import { useEffect } from 'react';
 
@@ -19,10 +19,10 @@ function Signup() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { userStatus } = useValidateUserAccess();
-	if (userStatus) {
-		navigate('/');
-	}
+	// const { userStatus } = useValidateUserAccess();
+	// if (userStatus) {
+	// 	navigate('/');
+	// }
 
 	const handleGoogleSignup = async () => {
 		const response = await authService.signInWithGoogle();
@@ -58,6 +58,32 @@ function Signup() {
 		setPassword('');
 		setLoading(false);
 	};
+
+		const { userStatus } = useValidateUserAccess();
+		if (userStatus === true) {
+			return (
+				<div className='min-h-screen flex items-center justify-center flex-col text-textPrimary'>
+					<h1>You Are Already Logged In Please Logout First</h1>
+					<div className='mt-8 flex justify-center'>
+						<Button
+							onClick={() => navigate('/')}
+							label='Home'
+							className={'px-5'}
+						/>
+						<Button
+							onClick={() => {
+								dispatch(logout());
+
+								authService.signOut();
+								navigate('/auth/signup');
+							}}
+							label='LogOut'
+							className={'px-5'}
+						/>
+					</div>
+				</div>
+			);
+		}
 
 	return (
 		<div className='min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>

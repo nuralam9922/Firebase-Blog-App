@@ -1,18 +1,16 @@
 import date from 'date-and-time';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { CgClose } from 'react-icons/cg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Cookies from 'universal-cookie';
 import { removeContent } from '../../features/blogContentSlice';
+import { fetchUserBlogs } from '../../features/userBlogSlice';
 import useUploadImage from '../../hooks/useUploadImage';
 import blogService from '../../services/blog.service';
 import Button from '../buttons/Button';
 import LoadingButton from '../LoadingButton';
-import { CgClose } from 'react-icons/cg';
-import { useEffect } from 'react';
-import { fetchUserBlogs } from '../../features/userBlogSlice';
-const cookies = new Cookies();
 
 import { tags } from './tags';
 

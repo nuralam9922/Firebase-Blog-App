@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import {
 	BlogCart,
 	BlogCartSkeleton,
@@ -6,19 +8,12 @@ import {
 	Navbar,
 	ThemeIcon,
 } from '../components';
-import { useNavigate } from 'react-router';
+import EditProfilePopup from '../components/EditProfilePopup';
+import { logout } from '../features/authSlice';
+import { toggleTheme } from '../features/themeSlice';
+import { fetchUserBlogs } from '../features/userBlogSlice';
 import useValidateUserAccess from '../hooks/useValidateUserAccess';
 import authService from '../services/auth.service';
-import { useDispatch } from 'react-redux';
-import { logout } from '../features/authSlice';
-import { useEffect } from 'react';
-import blogService from '../services/blog.service';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { toggleTheme } from '../features/themeSlice';
-import EditProfilePopup from '../components/EditProfilePopup';
-import { fetchUserBlogs } from '../features/userBlogSlice';
-import { useSelector } from 'react-redux';
 function Profile() {
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -116,7 +111,7 @@ function Profile() {
 					</div>
 					<button
 						onClick={handelLogout}
-						className=' text-xs px-2 md:px-4 py-2 md:py-2 bg-blue-500 text-white rounded-md float-end text-end'>
+						className=' text-xs px-2 md:px-4 py-2 md:py-2 bg-red-500 text-white rounded-md float-end text-end'>
 						Logout
 					</button>
 				</div>

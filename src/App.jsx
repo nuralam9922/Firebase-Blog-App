@@ -1,14 +1,12 @@
 import LocomotiveScroll from 'locomotive-scroll';
-import { Suspense, useEffect } from 'react';
-import { Outlet } from 'react-router';
-import { Loading } from './components';
-import AuthService from './services/auth.service';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router';
 import Cookies from 'universal-cookie';
+import { Loading } from './components';
 import { login } from './features/authSlice';
+import AuthService from './services/auth.service';
 
 const cookies = new Cookies();
 
@@ -21,20 +19,13 @@ function App() {
 	useEffect(() => {
 		setLoading(true);
 		(async () => {
-			const userId = cookies.get('auth');
-
+			// console.log(cookies.get('auth'));
 			try {
-				if (userId) {
-					const userDetails = await AuthService.getUserDetails(
-						userId
-					);
-					if (userDetails !== undefined) {
-						dispatch(login(userDetails));
-					}
-					setLoading(false);
-				} else {
-					setLoading(false);
+				const userDetails = await AuthService.getUserDetails();
+				if (userDetails !== undefined) {
+					dispatch(login(userDetails));
 				}
+				setLoading(false);
 			} catch (error) {
 				setLoading(false);
 

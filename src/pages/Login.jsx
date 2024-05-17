@@ -10,23 +10,25 @@ import { useDispatch } from 'react-redux';
 import { login, logout } from '../features/authSlice';
 import useValidateUserAccess from '../hooks/useValidateUserAccess';
 
+const cookies = new Cookies();
+
 function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
-	const cookies = new Cookies();
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const handleGoogleSignUp = async () => {
 		const response = await authService.signInWithGoogle();
+		setLoading(true);
 		if (response) {
 			dispatch(login(response));
 
 			navigate('/');
-		} else setError('Something went wrong');
+		} else setError('Something went wrong'), setLoading(false);
 	};
 
 	const handleLogin = async (e) => {
@@ -113,7 +115,7 @@ function Login() {
 						</div>
 					</div>
 
-					<form className='space-y-6' onSubmit={handleLogin}>
+					<form className={`space-y-6 ${loading ? 'select-none': 'select-all'}`} onSubmit={handleLogin}>
 						<div>
 							<label
 								htmlFor='email'

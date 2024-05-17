@@ -1,9 +1,23 @@
-import { browserLocalPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, setPersistence, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import {
+	browserLocalPersistence,
+	createUserWithEmailAndPassword,
+	getAuth,
+	GoogleAuthProvider,
+	onAuthStateChanged,
+	setPersistence,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+} from 'firebase/auth';
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, firestore } from '../firebase/firebaseConfig';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
+
+// const Auth = getAuth();
+// const user = Auth.currentUser;
+// console.log(user);
 
 class AuthService {
 	constructor() {
@@ -15,6 +29,17 @@ class AuthService {
 			.catch((error) => {
 				console.error('Error setting persistence:', error);
 			});
+
+		this.userIdPromise = new Promise((resolve) => {
+			onAuthStateChanged(auth, (user) => {
+				if (user) {
+					cookies.set('auth', user.uid, { path: '/' });
+					resolve(user.uid);
+				} else {
+					resolve(null);
+				}
+			});
+		});
 	}
 
 	async signInWithGoogle(errorState) {
@@ -52,7 +77,11 @@ class AuthService {
 
 	async signUp(name, email, password) {
 		try {
-			const user = await createUserWithEmailAndPassword(auth, email, password);
+			const user = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
 
 			const userId = user.user.uid;
 			const userRef = doc(firestore, 'users', userId);
@@ -79,7 +108,11 @@ class AuthService {
 
 	async signIn(email, password) {
 		try {
-			const user = await signInWithEmailAndPassword(auth, email, password);
+			const user = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
 			const userId = user.user.uid;
 
 			if (userId) {
@@ -107,10 +140,11 @@ class AuthService {
 	}
 
 	async getUserDetails(id) {
-		const userId = id || cookies.get('auth');
+		const useid = id || await this.userIdPromise
+		const userId = useid;
 
 		if (!userId) {
-			return false;
+			return null;
 		}
 
 		try {
@@ -120,7 +154,7 @@ class AuthService {
 			if (docSnap.exists) {
 				const userData = docSnap.data();
 				return { ...userData, userId };
-			} else return false;
+			} else return null;
 		} catch (error) {
 			console.log('Error in getUserDetails:', error);
 			throw error;
@@ -134,7 +168,7 @@ class AuthService {
 			const docRef = doc(collection(firestore, 'users'), userId);
 			await updateDoc(docRef, updatedData);
 
-			const userdet = await this.getUserDetails()
+			const userdet = await this.getUserDetails();
 			console.log(userdet);
 			return userdet;
 		} catch (error) {

@@ -10,11 +10,10 @@ const useValidateUserAccess = () => {
 
 	const { user } = useSelector((state) => state.authReducer);
 	useEffect(() => {
-		const userId = cookies.get('auth');
-		if (user !== null && userId) {
-			setUserStatus(true);
-		} else {
+		if (user == null || user == undefined) {
 			setUserStatus(false);
+		} else {
+			setUserStatus(true);
 		}
 	}, []);
 
