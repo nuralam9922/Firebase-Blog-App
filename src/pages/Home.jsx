@@ -84,7 +84,7 @@ function Home() {
 				</section>
 
 				<footer className='w-full mt-20'>
-					<div className='w-full h-[40px] flex items-center justify-center gap-[14px] text-textPrimary text-[18px]'>
+					<div className='w-full h-[40px] flex items-center justify-center gap-[14px] text-textPrimary text-[9px] flex-wrap md:text-[18px]'>
 						<p>© 2023</p> <p>Twitter</p> <p>LinkedIn</p>{' '}
 						<p>Email</p>
 						<p> feed Add to Feedly</p>
