@@ -21,7 +21,9 @@ class AuthService {
 
 			if (userDocSnap.exists()) {
 				cookies.set('auth', userId, { path: '/' });
-				return true;
+				const userDetails = await this.getUserDetails(userId);
+
+				return userDetails;
 			} else {
 				const res = await setDoc(userRef, {
 					userName: user.user.displayName,
@@ -59,8 +61,8 @@ class AuthService {
 			if (user) {
 				console.log(userId);
 				cookies.set('auth', userId, { path: '/' });
-				console.log(cookies.get('auth'));
-				return true;
+				const userDetails = await this.getUserDetails(userId);
+				return userDetails;
 			} else return false;
 		} catch (error) {
 			console.error('Error signing up:', error);
@@ -75,7 +77,8 @@ class AuthService {
 
 			if (userId) {
 				cookies.set('auth', userId, { path: '/' });
-				return true;
+				const userDetails = await this.getUserDetails(userId);
+				return userDetails;
 			} else return false;
 		} catch (error) {
 			console.error('Error signIn with email:', error.message);
@@ -89,7 +92,7 @@ class AuthService {
 	async signOut() {
 		try {
 			await signOut(auth);
-			cookies.set('auth', '', { path: '/' });
+			cookies.remove('auth', { path: '/' });
 		} catch (error) {
 			console.error('Error signing out:', error.message);
 			throw error;
@@ -109,7 +112,7 @@ class AuthService {
 
 			if (docSnap.exists) {
 				const userData = docSnap.data();
-				return userData;
+				return { ...userData, userId };
 			} else return false;
 		} catch (error) {
 			console.log('Error in getUserDetails:', error);

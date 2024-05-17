@@ -12,23 +12,13 @@ import { login } from './features/authSlice';
 
 const cookies = new Cookies();
 
-
 function App() {
 	const locomotiveScroll = new LocomotiveScroll();
 	const dispatch = useDispatch();
 
 	const [loading, setLoading] = useState(false);
-	
-
 
 	useEffect(() => {
-		const theme = localStorage.getItem('theme');
-		if (theme) {
-			document.documentElement.setAttribute('theme', theme );
-		} else {
-			document.documentElement.setAttribute('theme', 'light');
-		}
-
 		setLoading(true);
 		(async () => {
 			const userId = cookies.get('auth');
@@ -39,13 +29,11 @@ function App() {
 						userId
 					);
 					if (userDetails !== undefined) {
-						const userInfo = { ...userDetails, userId };
-						dispatch(login(userInfo));
+						dispatch(login(userDetails));
 					}
 					setLoading(false);
 				} else {
 					setLoading(false);
-					
 				}
 			} catch (error) {
 				setLoading(false);

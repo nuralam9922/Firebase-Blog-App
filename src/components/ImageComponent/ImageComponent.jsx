@@ -8,7 +8,7 @@ function ImageComponent({ width = 140, height = 40, src }) {
 			style={{
 				width: '100%',
 				height: height,
-				objectFit: 'cover',
+				objectFit: '',
 			}}
 			className="bg-zinc-500 p-0 overflow-hidden rounded-md"
 		>
@@ -19,9 +19,9 @@ function ImageComponent({ width = 140, height = 40, src }) {
 				style={{
 					width: '100%',
 					height: height,
-					objectFit: 'cover',
+					objectFit: '',
 				}}
-				className={` rounded-sm object-top object-cover `}
+				className={` rounded-sm object-top`}
 			/>
 		</div>
 	);

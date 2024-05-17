@@ -14,69 +14,12 @@ import { useEffect } from 'react';
 import { fetchUserBlogs } from '../../features/userBlogSlice';
 const cookies = new Cookies();
 
-const tags = [
-	'react',
-	'javascript',
-	'css',
-	'html',
-	'web development',
-	'web design',
-
-	'nodejs',
-	'express',
-	'nextjs',
-	'php',
-	'laravel',
-	'python',
-	'ux',
-	'ui',
-	'mechlin learning',
-
-	'app development',
-	'java',
-	'c++',
-	'c#',
-	'kotlin',
-	'go',
-	'rust',
-	'c',
-	'perl',
-	'ruby',
-	'financial',
-	'health',
-	'technology',
-	'science',
-	'lifestyle',
-	'travel',
-	'food',
-	'fitness',
-	'education',
-	'fashion',
-	'business',
-	'marketing',
-	'parenting',
-	'entertainment',
-	'career',
-	'gaming',
-	'art',
-	'music',
-	'politics',
-	'environment',
-	'self-improvement',
-	'psychology',
-	'history',
-	'philosophy',
-	'religion',
-	'literature',
-	'angular',
-	'vuejs',
-	'flutter',
-];
+import { tags } from './tags';
 
 function BlogPost({ previewData }) {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// }, []);
 
 	const [thumbnail, setThumbnail] = useState(null);
 	const [downloadedThumbnailUrl, setDownloadedThumbnailUrl] = useState(null);
@@ -84,6 +27,7 @@ function BlogPost({ previewData }) {
 	const [title, setTitle] = useState('');
 	const [isPublicPost, setIsPublicPost] = useState(true);
 	const [selectedTags, setSelectedTags] = useState([]);
+	const [viewAllTags, setViewAllTags] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
 	const { user } = useSelector((state) => state.authReducer);
 	const [loading, setLoading] = useState(false);
@@ -95,7 +39,6 @@ function BlogPost({ previewData }) {
 	const { uploadImage, uploadLoading } = useUploadImage();
 
 	const handleThumbnailChange = async (e) => {
-		// const toastId = toast.loading('Loading...');
 		const file = e.target.files[0]; // Get the first file from the selected files
 
 		if (file) {
@@ -203,7 +146,7 @@ function BlogPost({ previewData }) {
 				<h1 className='text-2xl font-poppins  mb-2'>Title</h1>
 				<input
 					type='text'
-					className='bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 outline-none'
+					className='bg-gray-100 border border-gray-300 text-textPrimary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 outline-none'
 					placeholder='Enter title...'
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
@@ -249,29 +192,43 @@ function BlogPost({ previewData }) {
 						value={searchValue}
 						onChange={(e) => setSearchValue(e.target.value)}
 						type='search'
-						className='bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 text-black outline-none'
+						className='bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 text-textPrimary outline-none'
 						placeholder='Search Tags...'
 						required
 					/>
-					<button
-						onClick={() => setSearchValue('')}
-						type='button'
-						className='absolute top-3 right-2 border'>
-						<CgClose />
-					</button>
+					<div className=' absolute top-0  w-fit right-2 flex items-center justify-between gap-2 h-full rounded-r-lg'>
+						<button
+							onClick={() => setSearchValue('')}
+							type='button'
+							className=' top-0 right-2  h-8 bg-blue-400 rounded-lg px-5'>
+							<CgClose />
+						</button>
+						<button
+							onClick={() =>
+								setViewAllTags((prev) => !prev)
+							}
+							type='button'
+							className=' top-0 right-2 cursor-pointer capitalize  bg-blue-400 rounded-lg h-8 px-5'>
+							<p>
+								{viewAllTags ? 'view Less' : 'view all'}
+							</p>
+						</button>
+					</div>
 				</div>
 
-				<div className='w-full grid grid-cols-1 text-xs sm:text-sm sm:grid-cols-3 md:text-base md:grid-cols-4 lg:grid-cols-6 gap-2  min-h-screen'>
+				<div className='w-full grid grid-cols-1 text-xs sm:text-sm sm:grid-cols-3 md:text-base md:grid-cols-4 lg:grid-cols-6 gap-2   place-items-start place-content-start'>
 					{tags
 						.filter((tag) =>
 							searchValue === ''
 								? true
 								: tag
 										.toLowerCase()
-										.includes(
+										.startsWith(
 											searchValue.toLowerCase()
 										)
 						)
+						.slice(0, viewAllTags ? 1000 : 10)
+
 						.map((tag) => (
 							<Button
 								key={tag}
@@ -291,7 +248,7 @@ function BlogPost({ previewData }) {
 									selectedTags.includes(tag)
 										? 'bg-blue-500 text-white'
 										: ''
-								}  w-full text-textPrimary h-20`}
+								}  w-full text-textPrimary h-14`}
 							/>
 						))}
 				</div>

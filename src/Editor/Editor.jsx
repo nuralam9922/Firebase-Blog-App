@@ -33,6 +33,7 @@ function Editor() {
 				insertImageAsBase64URI: true,
 			},
 			toolbarSticky: true,
+			
 			toolbarButtonSize: 'large',
 			minimumHeight: 1000,
 			minHeight: 701,

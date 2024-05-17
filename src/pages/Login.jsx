@@ -20,16 +20,12 @@ function Login() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handleGoogleSignup = async () => {
+	const handleGoogleSignUp = async () => {
 		const response = await authService.signInWithGoogle();
 		if (response) {
-			const userDetails = await authService.getUserDetails();
+			dispatch(login(response));
 
-			if (userDetails) {
-				dispatch(login(userDetails));
-
-				navigate('/');
-			} else setError('Something went wrong');
+			navigate('/');
 		} else setError('Something went wrong');
 	};
 
@@ -40,11 +36,13 @@ function Login() {
 			const response = await authService.signIn(email, password);
 
 			if (response) {
-				const userDetails = await authService.getUserDetails();
+				const userDetails = await authService.signIn(
+					email,
+					password
+				);
 
 				if (userDetails) {
 					dispatch(login(userDetails));
-
 					navigate('/');
 				} else setError('Something went wrong');
 			} else setError('Something went wrong');
@@ -61,7 +59,7 @@ function Login() {
 	const { userStatus } = useValidateUserAccess();
 	if (userStatus === true) {
 		return (
-			<div className='min-h-screen flex items-center justify-center flex-col'>
+			<div className='min-h-screen flex items-center justify-center flex-col text-textPrimary'>
 				<h1>You Are Already Logged In Please Logout First</h1>
 				<div className='mt-8 flex justify-center'>
 					<Button
@@ -96,7 +94,7 @@ function Login() {
 				<div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
 					<div className='flex justify-center mb-4'>
 						<button
-							onClick={handleGoogleSignup}
+							onClick={handleGoogleSignUp}
 							className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500'>
 							Sign in with Google
 						</button>
@@ -155,7 +153,7 @@ function Login() {
 									onChange={(e) =>
 										setPassword(e.target.value)
 									}
-									className='appearance-none bg-transparent block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+									className='text-black bg-transparent block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 								/>
 							</div>
 						</div>

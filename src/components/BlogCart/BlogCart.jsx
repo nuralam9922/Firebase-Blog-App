@@ -41,7 +41,7 @@ function BlogCart({ item, showDots = false }) {
 			: item?.title;
 
 	return (
-		<div className='w-full h-auto 	  flex flex-col  gap-[24px] relative overflow-hidden shadow-sm'>
+		<div className='w-full h-auto flex flex-col  gap-[24px] relative overflow-hidden shadow-sm'>
 			{/* only in profile page  */}
 			<div
 				style={{ display: showDots ? 'flex' : 'none' }}

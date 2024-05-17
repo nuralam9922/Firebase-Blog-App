@@ -19,9 +19,13 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 	console.log(user);
 
 	const handelUserDetailsUpdate = async () => {
-		if (user && name !== '' && user.userId) {
+		if (user && user.userId) {
+			console.log('calling me');
+
 			let imageUrl = null;
 			if (userPhoto) {
+				setUpdating(true);
+
 				imageUrl = await uploadImage(userPhoto);
 			}
 
@@ -44,7 +48,6 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 			setUpdating(false);
 		}
 	};
-
 
 	const handelImagePreview = (e) => {
 		const file = e.target.files[0];
@@ -155,7 +158,7 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 						) : (
 							<button
 								onClick={handelUserDetailsUpdate}
-								className='w-full py-2 px-10 bg-blue-400 rounded-lg text-white'
+								className='w-full py-2 px-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white'
 								type='button'>
 								Update
 							</button>

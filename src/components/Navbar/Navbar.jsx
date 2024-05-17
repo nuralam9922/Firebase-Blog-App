@@ -27,7 +27,7 @@ const mobileMenu = (setIsOpen, isOpen, user) => {
 		<div
 			className={`absolute w-full  h-screen ${
 				isOpen && 'customMenu:hidden'
-			} bg-[#1A1A1A] backdrop-blur-3xl flex items-center justify-center text-textPrimary ${animationClass}`}>
+			} bg-[#1A1A1A] backdrop-blur-3xl top-0  left-0 flex items-center justify-center text-textPrimary `}>
 			{/* close icon */}
 			<div
 				onClick={() => setIsOpen((prev) => !prev)}
@@ -93,9 +93,9 @@ function Navbar() {
 		<div
 			style={{
 				backdropFilter: 'blur(10px)',
-				background: 'transparent',
+				
 			}}
-			className="w-full p-[20px] sticky top-0  z-50 md:p-[30px] lg:p-[40px] h-[72px]  flex items-center justify-between"
+			className="w-full bg-background  p-[20px] sticky top-0  z-50 md:p-[30px] lg:p-[40px] h-[72px]  flex items-center justify-between"
 		>
 			<div className="logo bg-transparent">
 				<Logo Width="180" height="40" />

@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 const theme = localStorage.getItem('theme');
 
+if (theme) {
+	document.documentElement.setAttribute('theme', theme);
+} else {
+	document.documentElement.setAttribute('theme', 'light');
+}
+
 const initialState = {
 	theme: theme || 'light',
 };
