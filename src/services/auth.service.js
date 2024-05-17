@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { browserLocalPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, setPersistence, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, firestore } from '../firebase/firebaseConfig';
 import Cookies from 'universal-cookie';
@@ -8,6 +8,13 @@ const cookies = new Cookies();
 class AuthService {
 	constructor() {
 		this.googleProvider = new GoogleAuthProvider();
+		setPersistence(auth, browserLocalPersistence)
+			.then(() => {
+				console.log('Persistence set to local');
+			})
+			.catch((error) => {
+				console.error('Error setting persistence:', error);
+			});
 	}
 
 	async signInWithGoogle(errorState) {
