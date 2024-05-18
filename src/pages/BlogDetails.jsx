@@ -88,7 +88,7 @@ function BlogDetails() {
 												<>
 													<Link
 														to={`/profile/${data.user.userId}`}>
-														<div className='flex items-center  border'>
+														<div className='flex items-center  '>
 															<img
 																className='w-10 h-10 rounded-full mr-2 bg-slate-400'
 																src={
