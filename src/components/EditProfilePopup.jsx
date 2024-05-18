@@ -16,7 +16,6 @@ function EditProfilePopup({ user, showPopup, setShowPopup }) {
 
 	const { uploadImage, loading, uploadPercentage } = useUploadImage();
 
-	console.log(user);
 
 	const handelUserDetailsUpdate = async () => {
 		if (user && user.userId) {

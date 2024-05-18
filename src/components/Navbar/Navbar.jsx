@@ -55,7 +55,7 @@ const mobileMenu = (setIsOpen, isOpen, user) => {
 								Create Blog
 							</button>
 						</Link>
-						<Link to={'/profile'}>
+						<Link to={`/profile`}>
 							<button
 								className={
 									'text-white w-full border-2 py-2 px-5 flex items-center justify-center gap-2 rounded-md'
@@ -93,31 +93,40 @@ function Navbar() {
 		<div
 			style={{
 				backdropFilter: 'blur(10px)',
-				
 			}}
-			className="w-full bg-background  p-[20px] sticky top-0  z-50 md:p-[30px] lg:p-[40px] h-[72px]  flex items-center justify-between"
-		>
-			<div className="logo bg-transparent">
-				<Logo Width="180" height="40" />
+			className='w-full bg-background  p-[20px] sticky top-0  z-50 md:p-[30px] lg:p-[40px] h-[72px]  flex items-center justify-between'>
+			<div className='logo bg-transparent'>
+				<Logo Width='180' height='40' />
 			</div>
-			<div className="flex items-center justify-between  h-[40px] gap-[14px] text-textPrimary leading-[24px] bg-transparent">
-				<ul className=" items-center hidden  customForNavList:hidden md:flex justify-between gap-[14px] bg-transparent">
+			<div className='flex items-center justify-between  h-[40px] gap-[14px] text-textPrimary leading-[24px] bg-transparent'>
+				<ul className=' items-center hidden  customForNavList:hidden md:flex justify-between gap-[14px] bg-transparent'>
 					{navList.map((list) => (
-						<Link key={list.title} to={list.link} className="bg-transparent">
-							<li className="p-[8px] bg-transparent text-[18px]">{list.title}</li>
+						<Link
+							key={list.title}
+							to={list.link}
+							className='bg-transparent'>
+							<li className='p-[8px] bg-transparent text-[18px]'>
+								{list.title}
+							</li>
 						</Link>
 					))}
 
 					{user ? (
 						<Link to={'/create-blog'}>
-							<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+							<button
+								className={
+									'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'
+								}>
 								<GoPencil />
 								Create Blog
 							</button>
 						</Link>
 					) : (
 						<Link to={'/auth/login'}>
-							<button className={'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'}>
+							<button
+								className={
+									'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md'
+								}>
 								<BiLogIn />
 								Login
 							</button>
@@ -125,12 +134,11 @@ function Navbar() {
 					)}
 
 					{user && (
-						<Link to={'/profile'}>
+						<Link to={`/profile`}>
 							<button
 								className={
 									'text-textPrimary border-2 py-2 px-5 flex items-center justify-between gap-2 rounded-md hover:text-white hover:bg-blue-400'
-								}
-							>
+								}>
 								<CgProfile />
 								Profile
 							</button>
@@ -138,8 +146,10 @@ function Navbar() {
 					)}
 				</ul>
 
-				<div onClick={toggleMenu} className="size-[32px] border block cursor-pointer customMenu:hidden">
-					<HiMenu className="w-full h-full" />
+				<div
+					onClick={toggleMenu}
+					className='size-[32px] border block cursor-pointer customMenu:hidden'>
+					<HiMenu className='w-full h-full' />
 				</div>
 			</div>
 

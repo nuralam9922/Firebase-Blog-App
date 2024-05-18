@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Loading, Navbar, ProgressBar } from '../components';
-import blogService from '../services/blog.service';
 import authService from '../services/auth.service';
+import blogService from '../services/blog.service';
 
 
 function BlogDetails() {
@@ -50,7 +50,7 @@ function BlogDetails() {
 			<Navbar />
 
 			{/* progress bar */}
-			<ProgressBar/>
+			<ProgressBar />
 			<div
 				ref={blogContainerRef}
 				className='w-full flex items-center justify-center '>
@@ -85,25 +85,30 @@ function BlogDetails() {
 										</h1>
 										<div className='flex items-center py-10'>
 											{userDetails ? (
-												<div className='flex items-center py-10'>
-													<img
-														className='w-10 h-10 rounded-full mr-2 bg-slate-400'
-														src={
-															userDetails?.userPhoto
-														}
-														alt='User Avatar'
-													/>
-													<div className='flex flex-col'>
-														<h3 className=' text-xs md:text-lg font-bold'>
-															{
-																userDetails?.userName
-															}
-														</h3>
-														<p className='text-sm text-gray-500'>
-															Follow
-														</p>
-													</div>
-												</div>
+												<>
+													<Link
+														to={`/profile/${data.user.userId}`}>
+														<div className='flex items-center  border'>
+															<img
+																className='w-10 h-10 rounded-full mr-2 bg-slate-400'
+																src={
+																	userDetails?.userPhoto
+																}
+																alt='User Avatar'
+															/>
+															<div className='flex flex-col'>
+																<h3 className=' text-xs md:text-lg font-bold'>
+																	{
+																		userDetails?.userName
+																	}
+																</h3>
+																<p className='text-sm text-gray-500'>
+																	Follow
+																</p>
+															</div>
+														</div>
+													</Link>
+												</>
 											) : (
 												<div className='flex items-center py-10'>
 													{/* Skeleton UI for user details */}

@@ -18,7 +18,7 @@ const TrendingBlogs = React.lazy(() => import('./pages/TrendingBlogs'));
 const BlogPreview = React.lazy(() => import('./pages/blogPreview'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Signup = React.lazy(() => import('./pages/Signup'));
-
+const ProfilePage = React.lazy(() => import('./pages/profilePage'));
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -57,6 +57,10 @@ const router = createBrowserRouter([
 			{
 				path: '/auth/signup',
 				element: <Signup />,
+			},
+			{
+				path: '/profile/:userId',
+				element: <ProfilePage />,
 			},
 			{
 				path: '/test',

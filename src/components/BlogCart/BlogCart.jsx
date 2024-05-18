@@ -133,7 +133,7 @@ function BlogCart({ item, showDots = false }) {
 				</Link>
 
 				{/* blog category or types */}
-				<div className='w-full select-none md:h-[24px] flex items-center gap-[8px] flex-wrap '>
+				<div className='w-full select-none  flex items-center gap-[8px] flex-wrap '>
 					{item?.tags?.slice(0, 3).map((item, index) => {
 						const randomColor = color();
 

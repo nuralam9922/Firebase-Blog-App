@@ -22,10 +22,10 @@ function PostDeletePopup({ showDeletePopup, setShowDeletePopup, blogDetails }) {
 				<div className='text-center text-gray-800'>
 					Are you sure you want to delete this post?
 				</div>
-				<div
-					onClick={handelDeletePost}
-					className='flex justify-center mt-4'>
-					<button className='mr-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none'>
+				<div className='flex justify-center mt-4'>
+					<button
+						onClick={handelDeletePost}
+						className='mr-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none'>
 						Yes
 					</button>
 					<button
