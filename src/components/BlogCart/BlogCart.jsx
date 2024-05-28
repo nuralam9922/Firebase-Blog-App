@@ -11,18 +11,23 @@ import { useEffect } from 'react';
 import { CgClose } from 'react-icons/cg';
 
 const colorSet = [
+	// Light theme colors
 	{
-		textColor: '#C11574',
-		backgroundColor: '#FDF2FA',
+		textColor: '#333333',
+		backgroundColor: '#FDF2FA', // Light pink background
 	},
 	{
-		textColor: '#027A48',
-		backgroundColor: '#ECFDF3',
+		textColor: '#333333',
+		backgroundColor: '#FFF6ED', // Light pink background
 	},
+
 	{
-		textColor: '#C4320A',
-		backgroundColor: '#FFF6ED',
+		textColor: '#333333',
+		backgroundColor: '#FFF6ED', // Light yellow background
 	},
+
+	
+
 ];
 
 const color = () => {
@@ -41,7 +46,7 @@ function BlogCart({ item, showDots = false }) {
 			: item?.title;
 
 	return (
-		<div className='w-full h-auto flex flex-col  gap-[24px] relative overflow-hidden shadow-sm'>
+		<div className='w-full h-auto flex flex-col  gap-[24px] relative overflow-hidden '>
 			{/* only in profile page  */}
 			<div
 				style={{ display: showDots ? 'flex' : 'none' }}

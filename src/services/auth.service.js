@@ -1,17 +1,16 @@
 import {
 	browserLocalPersistence,
 	createUserWithEmailAndPassword,
-	getAuth,
 	GoogleAuthProvider,
 	onAuthStateChanged,
 	setPersistence,
 	signInWithEmailAndPassword,
 	signInWithPopup,
-	signOut,
+	signOut
 } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { auth, firestore } from '../firebase/firebaseConfig';
 import Cookies from 'universal-cookie';
+import { auth, firestore } from '../firebase/firebaseConfig';
 
 const cookies = new Cookies();
 
